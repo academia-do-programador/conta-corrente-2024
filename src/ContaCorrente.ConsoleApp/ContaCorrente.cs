@@ -11,9 +11,9 @@
         public Movimentacao[] Historico;
         private int qtdMovimentacoes;
 
-        public ContaCorrente(int numero, decimal saldo, decimal limite, Cliente titular)
+        public ContaCorrente(decimal saldo, decimal limite, Cliente titular)
         {
-            Numero = numero;
+            Numero = GeradorId.GerarNovoIdConta();
             Saldo = saldo;
             Limite = limite;
             Titular = titular;
