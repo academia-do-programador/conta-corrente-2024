@@ -18,6 +18,7 @@
             Limite = limite;
             Titular = titular;
 
+
             Historico = new Movimentacao[100];
         }
 
@@ -46,7 +47,7 @@
 
         public bool Transferir(decimal valor, ContaCorrente destinatario)
         {
-            bool conseguiuSacar = Sacar(valor);
+            bool conseguiuSacar = this.Sacar(valor);
 
             if (conseguiuSacar == false)
                 return false;

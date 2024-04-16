@@ -1,5 +1,7 @@
 ﻿namespace ContaCorrente.ConsoleApp
 {
+
+    // palavra-chave this
     internal class Program
     {
         static ContaCorrente[] contas = new ContaCorrente[10];
@@ -15,23 +17,20 @@
             contas[0] = contaCorrente1;
             contas[1] = contaCorrente2;
 
-            Console.WriteLine(contaCorrente1.Numero);
-            Console.WriteLine(contaCorrente2.Numero);
-            
-            //ContaCorrente contaEncontrada = BuscarConta(1);
-            //Console.WriteLine(contaEncontrada.Titular.NomeCompleto);
+            contaCorrente1.Transferir(200, contaCorrente2);
 
             Console.ReadLine();
         }
 
-        static ContaCorrente BuscarConta(int indiceParaRetornar)
+        static ContaCorrente BuscarConta(int numeroDaConta)
         {
             for (int i = 0; i < contas.Length; i++)
             {
                 if (contas[i] == null)
                     continue;
 
-                return contas[indiceParaRetornar];
+                if (contas[i].Numero == numeroDaConta)
+                    return contas[i];
             }
 
             return null;
