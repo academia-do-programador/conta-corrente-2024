@@ -1,39 +1,87 @@
 ﻿namespace ContaCorrente.ConsoleApp
 {
-
-    // palavra-chave this
     internal class Program
     {
-        static ContaCorrente[] contas = new ContaCorrente[10];
-
         static void Main(string[] args)
         {
-            Cliente cliente1 = new Cliente("Tiago Santini", "022.232.145-90");
-            ContaCorrente contaCorrente1 = new ContaCorrente(1200, 1000, cliente1);
-       
-            Cliente cliente2 = new Cliente("Alexandre Rech", "013.550.822-50");
-            ContaCorrente contaCorrente2 = new ContaCorrente(5000, 3000, cliente2);
+            Funcionario funcionario1 = new Funcionario();
 
-            contas[0] = contaCorrente1;
-            contas[1] = contaCorrente2;
+            funcionario1.Nome = "Tiago";
+            funcionario1.Cpf = "200.001.220-02";
+            funcionario1.Salario = 10_000m;
 
-            contaCorrente1.Transferir(200, contaCorrente2);
+            funcionario1.Atender();
+
+            Gerente gerente = new Gerente();
+
+            gerente.Nome = "Rech";
+            gerente.Cpf = "350.201.290-10";
+            gerente.Salario = 50_000m;
+            gerente.Senha = "x0Zweqas812MlY_";
+
+            gerente.Atender();
+            gerente.Autenticar("abc123");
+
+            TecnicoInformatica tecnicoInformatica = new TecnicoInformatica();
+            tecnicoInformatica.PararSistema();
+
+            Console.WriteLine(gerente);
 
             Console.ReadLine();
         }
 
-        static ContaCorrente BuscarConta(int numeroDaConta)
-        {
-            for (int i = 0; i < contas.Length; i++)
-            {
-                if (contas[i] == null)
-                    continue;
+        // Superclasse ou classe pai
+        // Entidade Base
 
-                if (contas[i].Numero == numeroDaConta)
-                    return contas[i];
+        // Base = classe pai / superclasse
+        class Funcionario : object
+        {
+            public string Nome { get; set; }
+
+            public string Cpf { get; set; }
+
+            public decimal Salario { get; set; }
+
+            public virtual void Atender()
+            {
+                Console.WriteLine("Chamando o próximo cliente.");
             }
 
-            return null;
+            // sobrescrita de método
+            public override string ToString()
+            {
+                return $"{Nome}, {Cpf}, {Salario}";
+            }
+        }
+
+        // Subclasse ou Classe filha
+        class Gerente : Funcionario
+        {
+            public string Senha { get; set; }
+
+            public void Autenticar(string senhaDigitada)
+            {
+                if (senhaDigitada == this.Senha)
+                    Console.WriteLine("Acesso autorizado.");
+
+                else
+                    Console.WriteLine("Acesso negado!");
+            }
+
+            public override void Atender()
+            {
+                Console.WriteLine("Chamando o próximo cliente VIP");
+            }
+        }
+
+        class TecnicoInformatica : Funcionario
+        {
+            public string SenhaBancoDados { get; set; }
+
+            public void PararSistema()
+            {
+                Console.WriteLine("O sistema está inativo!");
+            }
         }
     }
 }
